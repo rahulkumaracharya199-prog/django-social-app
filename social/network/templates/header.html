@@ -1,0 +1,21 @@
+<div class="flex items-center justify-between px-10 py-3 bg-slate-900 text-white">
+    <a href="{% url 'index' %}" class="text-2xl font-bold">Social</a>
+
+    <div class="space-x-5">
+        {% if user.is_authenticated %}
+        <span class="font-semibold">Hello, {{ user.username }}</span>
+        <a href="{% url 'logout' %}" class="font-semibold">LogOut</a>
+        {% else %}
+        <div class="flex gap-3">
+            <a href="{% url 'login' %}" class="bg-slate-900 text-white py-2 rounded-lg hover:bg-slate-800 transition">
+                Login
+            </a>
+
+            <a href="{% url 'register' %}"
+                class="bg-slate-900 text-white py-2 rounded-lg hover:bg-slate-800 transition">
+                Register
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>

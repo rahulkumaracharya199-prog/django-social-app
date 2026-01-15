@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Django
+*.log
+db.sqlite3
+media/
+staticfiles/
+.env
+
+# Virtual Environment
+server/
+venv/
+env/
+ENV/
+.venv/
+
+# Migrations (optional – many teams keep them)
+**/migrations/__pycache__/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Node (if using Tailwind locally)
+node_modules/

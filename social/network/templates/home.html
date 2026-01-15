@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex items-center justify-center bg-gray-100 w-screen h-[670px]">
+    <div class="bg-white rounded-xl shadow-lg p-8 w-96 text-center">
+        <h1 class="text-3xl font-bold text-slate-900 mb-4">
+            Welcome to Social
+        </h1>
+
+        <p class="text-gray-600 mb-6">
+            Connect with people and share your thoughts
+        </p>
+
+        <div class="flex flex-col gap-3">
+            <a href="{% url 'login' %}"
+               class="bg-slate-900 text-white py-2 rounded-lg hover:bg-slate-800 transition">
+                Login
+            </a>
+
+            <a href="{% url 'register' %}"
+               class="border border-slate-900 text-slate-900 py-2 rounded-lg hover:bg-slate-900 hover:text-white transition">
+                Register
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
