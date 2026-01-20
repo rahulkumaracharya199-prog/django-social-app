@@ -12,5 +12,6 @@ urlpatterns = [
     path("accounts/logout/", logout_view , name="logout"),
     # profile routes
     path("profile/", profileindex, name="profile"),
-    path("createpost/", CreatePost, name="createpost")
+    path("createpost/", CreatePost, name="createpost"),
+    path("likepost/<int:post_id>/", likePost, name="likepost")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

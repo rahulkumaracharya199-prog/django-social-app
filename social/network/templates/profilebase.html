@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <div class="flex flex-1 bg-blue-500 px-20 py-5">
+    <div class="flex flex-1 bg-blue-500 px-20 py-3">
         <a href="" class="text-white text-3xl font-bold">Social</a>
         <div class="flex-grow flex justify-center items-center">
             <form action="" method="get" class="w-full max-w-md">
@@ -17,8 +17,8 @@
         </div>
         <div class="flex items-center space-x-4">
             {% if user.is_authenticated %}
-            <span class="text-white">Hello, {{ user.username }}</span>
-            <a href="{% url "logout" %}" class="text-white hover:underline">Logout</a>
+            <span class="text-white font-lg font-semibold">Hello, {{ user.username }}</span>
+            <a href="{% url "logout" %}" class="text-white font-lg font-semibold hover:underline">Logout</a>
             {% endif %}
         </div>
     </div>

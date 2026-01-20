@@ -2,113 +2,127 @@
 
 {% block content %}
 <div class="min-h-screen w-full bg-gray-100">
-    <div class="px-10 py-6">
-        <div class="flex gap-6">
 
-            <!-- LEFT SIDEBAR -->
-            <aside class="w-2/12 hidden lg:block">
-                <div class="bg-white rounded-xl shadow-sm border p-4 space-y-4 sticky top-6">
-                    <h2 class="font-semibold text-gray-700">Menu</h2>
-                    <ul class="space-y-2 text-gray-600">
-                        <li class="hover:text-blue-500 cursor-pointer">Home</li>
-                        <li class="hover:text-blue-500 cursor-pointer">Profile</li>
-                        <li class="hover:text-blue-500 cursor-pointer">Notifications</li>
-                        <li class="hover:text-blue-500 cursor-pointer">Settings</li>
-                    </ul>
-                </div>
-            </aside>
+    <div class="flex justify-around mt-5">
 
-            <!-- CENTER FEED -->
-            <main class="w-full lg:w-5/12 space-y-6">
+        <!-- LEFT SIDEBAR -->
+        <aside class="w-2/12">
+            <div class="bg-white rounded-xl shadow-sm border p-4 space-y-4">
+                <h2 class="font-semibold text-gray-700">Menu</h2>
+                <ul class="space-y-2 text-gray-600">
+                    <li class="hover:text-blue-500 cursor-pointer">Home</li>
+                    <li class="hover:text-blue-500 cursor-pointer">Profile</li>
+                    <li class="hover:text-blue-500 cursor-pointer">Notifications</li>
+                    <li class="hover:text-blue-500 cursor-pointer">Settings</li>
+                </ul>
+            </div>
+        </aside>
 
-                <!-- Create Post -->
-                <div class="bg-white rounded-xl shadow-sm border p-5">
-                    <form method="post" enctype="multipart/form-data" action="{% url 'createpost' %}">
-                        {% csrf_token %}
+        <!-- CENTER FEED -->
+        <main class="w-full lg:w-5/12 space-y-6">
 
-                        <textarea
-                            rows="3"
-                            name="content"
-                            placeholder="What's on your mind?"
-                            class="w-full resize-none border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        ></textarea>
+            <!-- Create Post -->
+            <div class="bg-white rounded-xl shadow-sm border p-5">
+                <form method="post" enctype="multipart/form-data" action="{% url 'createpost' %}">
+                    {% csrf_token %}
 
-                        <div class="flex items-center justify-between mt-4">
-                            <input type="file" name="image" class="text-sm">
-                            <button
-                                type="submit"
-                                class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"
-                            >
-                                Post
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    <textarea rows="3" name="content" placeholder="What's on your mind?"
+                        class="w-full resize-none border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
 
-                <!-- Posts -->
-                {% for post in posts %}
-                <div class="bg-white rounded-xl shadow-sm border p-5 space-y-3">
-                    <div class="flex items-center gap-4">
-                        <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
-                            {{ post.author.username|slice:":1"|upper }}
-                        </div>
-                        <div>
-                            <h3 class="font-semibold">{{ post.author.username }}</h3>
-                            <p class="text-xs text-gray-500">
-                                {{ post.created_at|date:"M d, Y • H:i" }}
-                            </p>
-                        </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <input type="file" name="image" class="text-sm">
+                        <button type="submit"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+                            Post
+                        </button>
                     </div>
+                </form>
+            </div>
 
-                    <p>{{ post.content }}</p>
-
-                    {% if post.image %}
-                    <img src="{{ post.image.url }}"
-                         class="w-full rounded-lg max-h-[500px] object-cover border">
-                    {% endif %}
+            <!-- Posts -->
+            {% for post in posts %}
+            <div class="bg-white rounded-xl shadow-sm border p-5 space-y-3">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                        {{ post.author.username|slice:":1"|upper }}
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">{{ post.author.username }}</h3>
+                        <p class="text-xs text-gray-500">
+                            {{ post.created_at|date:"M d, Y • H:i" }}
+                        </p>
+                    </div>
                 </div>
-                {% endfor %}
-            </main>
 
-            <!-- RIGHT SIDEBAR 1 -->
-            <aside class="w-2/12 hidden xl:block">
-                <div class="bg-white rounded-xl shadow-sm border p-4 sticky top-6">
-                    <h2 class="font-semibold text-gray-700 mb-3">Suggestions</h2>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex justify-between items-center">
-                            <span>User_01</span>
-                            <button class="text-blue-500">Follow</button>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>User_02</span>
-                            <button class="text-blue-500">Follow</button>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>User_03</span>
-                            <button class="text-blue-500">Follow</button>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>User_04</span>
-                            <button class="text-blue-500">Follow</button>
-                        </li>
-                    </ul>
+                <p>{{ post.content }}</p>
+
+                {% if post.image %}
+                <img src="{{ post.image.url }}" class="w-full rounded-lg max-h-[500px] object-cover border">
+                {% endif %}
+
+                <div class="flex items-center gap-4 pt-2">
+                    <form method="post" action="{% url 'likepost' post.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="flex items-center gap-1 text-sm transition">
+                            {% if post.id in liked_post_ids %}
+                            <!-- User has liked → show Unlike in blue -->
+                            <span class="text-blue-500 hover:text-gray-500">❤️ Unlike</span>
+                            {% else %}
+                            <!-- User has not liked → show Like in grey -->
+                            <span class="text-gray-500 hover:text-blue-500">❤️ Like</span>
+                            {% endif %}
+                        </button>
+                    </form>
+
+                    <span class="text-sm text-gray-500 ml-2">
+                        {{ post.likes.count }} like{{ post.likes.count|pluralize }}
+                    </span>
                 </div>
-            </aside>
 
-            <!-- RIGHT SIDEBAR 2 -->
-            <aside class="w-2/12 hidden xl:block">
-                <div class="bg-white rounded-xl shadow-sm border p-4 sticky top-6">
-                    <h2 class="font-semibold text-gray-700 mb-3">Trending</h2>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li>#Django</li>
-                        <li>#TailwindCSS</li>
-                        <li>#WebDevelopment</li>
-                        <li>#Python</li>
-                    </ul>
-                </div>
-            </aside>
+            </div>
+            {% endfor %}
+        </main>
 
-        </div>
+        <!-- RIGHT SIDEBAR 1 -->
+        <aside class="w-2/12">
+            <div class="bg-white rounded-xl shadow-sm border p-4">
+                <h2 class="font-semibold text-gray-700 mb-3">Suggestions</h2>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex justify-between items-center">
+                        <span>User_01</span>
+                        <button class="text-blue-500">Follow</button>
+                    </li>
+                    <li class="flex justify-between items-center">
+                        <span>User_02</span>
+                        <button class="text-blue-500">Follow</button>
+                    </li>
+                    <li class="flex justify-between items-center">
+                        <span>User_03</span>
+                        <button class="text-blue-500">Follow</button>
+                    </li>
+                    <li class="flex justify-between items-center">
+                        <span>User_04</span>
+                        <button class="text-blue-500">Follow</button>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- RIGHT SIDEBAR 2 -->
+        <aside class="w-2/12">
+            <div class="bg-white rounded-xl shadow-sm border p-4">
+                <h2 class="font-semibold text-gray-700 mb-3">Trending</h2>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li>#Django</li>
+                    <li>#TailwindCSS</li>
+                    <li>#WebDevelopment</li>
+                    <li>#Python</li>
+                </ul>
+            </div>
+        </aside>
+
     </div>
+
 </div>
 {% endblock %}

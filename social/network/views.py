@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, PostLike
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -44,9 +44,16 @@ def register_view(request):
 
 @login_required
 def profileindex(request):
-    data = {}
-    data['posts'] = Post.objects.all().order_by('-created_at')
-    return render (request, "profile/index.html", data)
+    posts = Post.objects.all().order_by('-created_at').prefetch_related('likes')
+    
+    # List of post IDs the current user liked
+    liked_post_ids = list(PostLike.objects.filter(user=request.user).values_list('post_id', flat=True))
+
+    return render(request, "profile/index.html", {
+        'posts': posts,
+        'liked_post_ids': liked_post_ids
+    })
+
 
 @login_required
 def logout_view(request):
@@ -63,3 +70,14 @@ def CreatePost(request):
         post.save()
         return redirect("profile")
 
+@login_required
+def likePost(request, post_id):
+    post = Post.objects.get(id=post_id)
+    postLikes = PostLike.objects.filter(user=request.user, post=post)
+    if postLikes.exists():
+        postLikes.delete()
+    else:
+        postLikes = PostLike(user=request.user, post=post)
+        postLikes.save()
+
+    return redirect('profile')
